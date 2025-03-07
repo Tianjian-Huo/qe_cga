@@ -424,14 +424,15 @@ class QE(Abinitio):
             raise ValueError("必须提供文件夹路径用于QE计算。")
 
         self.folder_name = os.path.abspath(folder_name)
-        self.config_file = self.get_config_path(self.folder_name)
+        parent_dir = os.path.dirname(self.folder_name)
+        config_file = os.path.join(parent_dir, "config.ini")
 
         # 读取 config.ini 配置文件
         config = configparser.ConfigParser()
-        if os.path.exists(self.config_file):
-            config.read(self.config_file)
+        if os.path.exists(config_file):
+            config.read(config_file)
         else:
-            raise FileNotFoundError(f"[错误] 未找到配置文件: {self.config_file}")
+            raise FileNotFoundError(f"[错误] 未找到配置文件: {config_file}")
 
         # 从配置文件中获取参数
         self.pseudo_dir = config.get("optimize", "qe_pseudo_dir", fallback="/home/cast/users/htj/pseudo")
@@ -1684,4 +1685,3 @@ def optimize(cluster, folder_name=None, **kw):
     
 Abinitio.set_path(os.path.abspath("./"))
 Abinitio.config() #第一性原理计算配置
-
