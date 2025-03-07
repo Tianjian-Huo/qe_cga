@@ -1,0 +1,130 @@
+import os
+import sys
+import tempfile
+import shutil
+
+from shutil import rmtree,copyfile
+from configparser import ConfigParser
+import re
+import time
+import subprocess
+import platform
+import psutil
+from signal import SIGTERM
+from periodictable import elements
+import random
+import string
+import json
+
+import numpy as np
+from . import utils
+from .point import Point
+from .io import *
+from .cluster import Cluster
+try:
+    import scipy.optimize as opt
+    import torch
+    from ..gcn.gcn import GCN,GCNF
+    import warnings
+    warnings.simplefilter("ignore") #关闭经验势计算中的警告
+except:
+    #print('warning: 没有scipy或torch模块，不使用经验势优化可忽略')
+    pass
+
+
+_accelrys_path = ''
+_ms_version = ''
+
+
+
+def set_accelrys_path():
+    global _accelrys_path
+    if platform.system() == 'Windows':
+        _accelrys_path = Abinitio.cfg.get('optimize', 'accelrys_path_windows')
+    else:
+        _accelrys_path = Abinitio.cfg.get('optimize', 'accelrys_path_linux')
+
+    global _ms_version
+    _ms_version = re.compile(r'\d+\.?\d*').findall(_accelrys_path.split('etc')[0])[-1]
+    if '.' in _ms_version:
+        _ms_version = int(float(_ms_version)*10)
+    else:
+        _ms_version = int(_ms_version)
+
+
+# Utility Functions
+def load_pseudo_files(pseudo_dir):
+    pseudo_files = {}
+    try:
+        for file in os.listdir(pseudo_dir):
+            if file.endswith((".UPF", ".upf")):
+                element = file.split(".")[0]
+                pseudo_files[element] = file
+        print(f"[信息] 共加载 {len(pseudo_files)} 个赝势文件.")
+    except Exception as e:
+        print(f"[错误] 无法加载赝势文件: {e}")
+    return pseudo_files
+
+def get_mass(element):
+    try:
+        return getattr(elements, element).mass
+    except AttributeError:
+        return 0.0
+
+def calculate_lattice_from_positions(atomic_positions, offset=0):
+    positions = np.array([list(map(float, pos[1:])) for pos in atomic_positions])
+    max_pos = np.max(positions, axis=0)
+    min_pos = np.min(positions, axis=0)
+    return max_pos - min_pos + offset
+    
+
+def parse_molecule_from_config(config_path):
+    config = ConfigParser()
+    config.read(config_path)
+    elements = config["cluster"]["element"].split()
+    atom_counts = list(map(int, config["cluster"]["atom_num"].split()))
+    return [(elements[i], atom_counts[i]) for i in range(len(elements))]
+
+
+def generate_atoms(parsed_elements):
+    """
+    根据解析的分子式生成原子列表，包含原子的 symbol 和初始坐标。
+    :param parsed_elements: 元素和数量的列表，例如 [("Ca", 1), ("Ni", 2)]
+    :return: 原子列表，每个原子包含 symbol 和初始坐标 (x, y, z)
+    """
+    atoms = []
+    offset = 1.0  # 坐标偏移量
+    for symbol, count in parsed_elements:
+        for i in range(count):
+            x = offset * i
+            y = offset * i
+            z = offset * i
+            atoms.append({"symbol": symbol, "x": x, "y": y, "z": z})
+    print(f"[调试] 生成的 atoms: {atoms}")
+    return atoms
+
+
+def write_qe_input(cluster, file_name, pseudo_dir, pseudo_mapping, config_file):
+    # 读取配置文件中的参数
+    if isinstance(config_file, str):
+        # 如果 config_file 是字符串（路径），则读取文件
+        with open(config_file, "r") as f:
+            config = json.load(f)
+    else:
+        raise ValueError(f"Expected config_file to be a string path, but got {type(config_file)}")
+    
+    # 从配置文件中读取参数，如果没有则使用默认值
+    forc_conv_thr = config.get('forc_conv_thr', 1e-3)
+    nstep = config.get('nstep', 50)
+    ecutwfc = config.get('ecutwfc', 40.0)
+    ecutrho = config.get('ecutrho', 240.0)
+    electron_maxstep = config.get('electron_maxstep', 50)
+    conv_thr = config.get('conv_thr', '1e-6')
+
+    element_counts = {}
+    for atom in cluster.atoms:
+        element_counts[atom.elem] = element_counts.get(atom.elem, 0) + 1
+    prefix = "".join([f"{k}{v}" for k, v in element_counts.items()])
+
+    atomic_positions = [(atom.elem, atom.x, atom.y, atom.z) for atom in cluster.atoms]
+    lattice_con

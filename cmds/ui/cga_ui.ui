@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1272</width>
+    <height>789</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CGA</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>C:/Users/admin/Desktop/TIM图片20180822142201.jpg</normaloff>C:/Users/admin/Desktop/TIM图片20180822142201.jpg</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableView" name="pop_info">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>321</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>410</y>
+      <width>291</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>文件名前缀：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="prefix"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="save_pop">
+       <property name="text">
+        <string>排序并保存种群结构</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>410</y>
+      <width>931</width>
+      <height>401</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1272</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_abinitio">
+    <property name="title">
+     <string>第一性原理软件</string>
+    </property>
+    <addaction name="dmol3_set"/>
+    <addaction name="vasp_set"/>
+    <addaction name="gaussian_set"/>
+    <addaction name="lammps_set"/>
+    <addaction name="abacus_set"/>
+    <addaction name="separator"/>
+    <addaction name="run_abinitio"/>
+   </widget>
+   <widget class="QMenu" name="menuCGA">
+    <property name="title">
+     <string>CGA</string>
+    </property>
+    <addaction name="new_cga"/>
+    <addaction name="continue_cga"/>
+   </widget>
+   <widget class="QMenu" name="menu_help">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="action_CGA"/>
+   </widget>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="open_folder"/>
+    <addaction name="open_file"/>
+    <addaction name="save"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>分析</string>
+    </property>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_abinitio"/>
+   <addaction name="menuCGA"/>
+   <addaction name="menu"/>
+   <addaction name="menu_help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="dmol3_set">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>DMol3</string>
+   </property>
+  </action>
+  <action name="vasp_set">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>VASP</string>
+   </property>
+  </action>
+  <action name="gaussian_set">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Gaussian</string>
+   </property>
+  </action>
+  <action name="lammps_set">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lammps</string>
+   </property>
+  </action>
+  <action name="abacus_set">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Abacus</string>
+   </property>
+  </action>
+  <action name="new_cga">
+   <property name="text">
+    <string>新搜索</string>
+   </property>
+  </action>
+  <action name="continue_cga">
+   <property name="text">
+    <string>继续搜索</string>
+   </property>
+  </action>
+  <action name="action_CGA">
+   <property name="text">
+    <string>关于CGA</string>
+   </property>
+  </action>
+  <action name="open_folder">
+   <property name="text">
+    <string>打开文件夹</string>
+   </property>
+  </action>
+  <action name="open_file">
+   <property name="text">
+    <string>打开文件</string>
+   </property>
+  </action>
+  <action name="run_abinitio">
+   <property name="text">
+    <string>运行</string>
+   </property>
+  </action>
+  <action name="save">
+   <property name="text">
+    <string>保存</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>save_pop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_pop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1134</x>
+     <y>587</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>355</x>
+     <y>421</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pop_info</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_pop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>480</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>save_pop()</slot>
+  <slot>show_pop()</slot>
+ </slots>
+</ui>

@@ -1,0 +1,26 @@
+#PBS -S /bin/bash
+#PBS -N F.Ag_16
+#PBS -l nodes=1:ppn=28
+#PBS -q batch
+#PBS -j oe
+#PBS -o script.out
+#PBS -l walltime=999:00:00
+
+cd $PBS_O_WORKDIR
+WORKDIR=$PBS_O_WORKDIR
+NODES=`cat $PBS_NODEFILE | uniq`
+NP=`cat $PBS_NODEFILE | wc -l`
+echo Working directory is $PBS_O_WORKDIR
+echo Runing on host `hostname`
+echo Starting Time is `date`
+echo Directory is `pwd`
+echo This jobs runs on the following processors:
+echo `cat $PBS_NODEFILE`
+echo "JOBID: $PBS_JOBID"
+echo This job has allocated $NP nodes
+
+# Run vasp Job in local tmp dir
+ulimit -s unlimited
+unset PYTHONPATH
+python3 cmds_cmd.py cga search
+echo Ending Time is `date`

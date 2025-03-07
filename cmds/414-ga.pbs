@@ -1,0 +1,33 @@
+#!/bin/sh
+#PBS -S /bin/bash
+#PBS -N fuli-test
+#PBS -l nodes=1:ppn=32
+#PBS -q batch
+#PBS -j oe
+#PBS -o script.out
+#PBS -l walltime=999:00:00
+
+#####MS7.0#########
+export MS_INSTALL_ROOT=/home/cast/Accelrys/MaterialsStudio8.0
+export CASTEP=$MS_INSTALL_ROOT/etc/DMol3/bin/RunDMol3.sh
+export I_MPI_ROOT=$MS_INSTALL_ROOT
+export PATH=$MS_INSTALL_ROOT/bin:$PATH
+export LD_LIBRARY_PATH=$MS_INSTALL_ROOT/lib:$LD_LIBRARY_PATH
+export MSI_LIC_PACK_DIR=/home/cast/Accelrys/LicensePack
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MSI_LIC_PACK_DIR/linux/lib
+export PSPOT_DIR=$MS_INSTALL_ROOT/share/Resources/Quantum/DMol3
+NODES=`cat $PBS_NODEFILE | uniq`
+NP=`cat $PBS_NODEFILE | wc -l`
+
+echo JOBID: $PBS_JOBID
+echo The job was started at `date`
+echo The job was running at $NODES.
+
+cd $PBS_O_WORKDIR
+WORKDIR=$PBS_O_WORKDIR
+
+unset PYTHONPATH
+ulimit -s unlimited
+python3 cmds_cmd.py cga search
+
+echo The job was finished at `date`

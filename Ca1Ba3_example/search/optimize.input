@@ -1,0 +1,30 @@
+
+# Task parameters
+Calculate                     optimize
+Opt_energy_convergence        1.0000e-004
+Opt_gradient_convergence      2.0000e-002 A
+Opt_displacement_convergence  5.0000e-002 A
+Opt_iterations                100
+Opt_max_displacement          0.3000 A
+Initial_hessian               improved
+Symmetry                      off
+
+# Electronic parameters
+Spin_polarization             restricted
+Charge                        0
+Basis                         dnp
+Pseudopotential               vpsr
+Functional                    pbe
+Aux_density                   octupole
+Integration_grid              coarse
+Occupation                    thermal 0.0050
+Cutoff_Global                 6.000 angstrom
+Scf_density_convergence       1.0000e-004
+Scf_charge_mixing             2.0000e-001
+Scf_iterations                500
+Scf_diis                      6 pulay
+
+# Print options
+Print                         eigval_last_it
+
+# Calculated properties

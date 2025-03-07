@@ -1,0 +1,17 @@
+job start at: Tue Nov  3 21:19:43 2020
+folder name: E:\cluster\alloy\Au10Cl10\Au10Cl10_2ring
+job end at: Tue Nov  3 21:19:46 2020
+can not get energy value.
+job start at: Tue Nov  3 21:21:50 2020
+folder name: E:\cluster\alloy\Au10Cl10\Au10Cl10_2ring
+job end at: Tue Nov  3 21:21:52 2020
+can not get energy value.
+job start at: Tue Nov  3 21:27:55 2020
+folder name: E:\cluster\alloy\Au10Cl10\Au10Cl10_2ring_0
+job end at: Tue Nov  3 21:28:25 2020
+job start at: Tue Nov  3 21:35:26 2020
+folder name: E:\cluster\alloy\Au10Cl10\Au10Cl10_2ring
+job end at: Tue Nov  3 22:16:45 2020
+job start at: Fri Nov 13 22:26:26 2020
+folder name: E:\cluster\alloy\Au10Cl10\Au10Cl10_tube
+job end at: Fri Nov 13 22:33:43 2020

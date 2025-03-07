@@ -1,0 +1,13 @@
+{
+    "forc_conv_thr": 0.001,
+    "nstep": 30,
+    "ecutwfc": 40.0,
+    "ecutrho": 240.0,
+    "electron_maxstep": 30,
+    "conv_thr": "1e-6",
+    "degauss": 0.02,
+    "smearing": "gaussian",
+    "mixing_beta": 0.5,
+    "CELL_PARAMETERS": "offset",
+    "offset": 10.0
+}
