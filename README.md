@@ -1,4 +1,4 @@
-# MyProject
+# qe_cga
 
 ## Overview
 This repository contains scripts and configurations to set up and optimize molecular structures using `setup.py`. The process involves copying necessary files from the `cmds` directory and modifying configurations based on user input.
