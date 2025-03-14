@@ -8,6 +8,7 @@
     "degauss": 0.02,
     "smearing": "gaussian",
     "mixing_beta": 0.5,
+    "nspin": 2,
     "CELL_PARAMETERS": "offset",
     "offset": 10.0
 }
