@@ -121,9 +121,10 @@ def write_qe_input(cluster, file_name, pseudo_dir, pseudo_mapping, config_file):
     ecutrho = config.get('ecutrho', 240.0)
     electron_maxstep = config.get('electron_maxstep', 30)
     conv_thr = config.get('conv_thr', '1e-7')
-    degauss = config.get('degauss', 0.02)
+    degauss = config.get('degauss', 0.001)
+    nspin = config.get('nspin', 2)
     smearing = config.get('smearing', 'gaussian')
-    mixing_beta = config.get('mixing_beta', 0.5)
+    mixing_beta = config.get('mixing_beta', 0.3)
 
     element_counts = {}
     for atom in cluster.atoms:
@@ -158,11 +159,13 @@ def write_qe_input(cluster, file_name, pseudo_dir, pseudo_mapping, config_file):
         out.write("   occupations = 'smearing'\n")
         out.write(f"   smearing = '{smearing}'\n")
         out.write(f"   degauss = {degauss}\n")
+        out.write(f"   nspin = {nspin}\n")
+        out.write(f"   starting_magnetization(1) = 0.001\n")
         out.write("/\n\n")
 
         # 写入 ELECTRONS Section
         out.write("&electrons\n")
-        out.write("   scf_must_converge = .true.\n")
+        out.write("   scf_must_converge = .false.\n")
         out.write(f"   electron_maxstep = {electron_maxstep}\n")
         out.write(f"   conv_thr = {conv_thr}\n")
         out.write(f"   mixing_mode = 'plain'\n")

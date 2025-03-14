@@ -102,9 +102,10 @@ def create_qein_json(search_path, structure_name):
         "ecutrho": ecutrho,
         "electron_maxstep": 30,
         "conv_thr": "1e-6",
-        "degauss": 0.02,
+        "degauss": 0.001,
         "smearing": "gaussian",
-        "mixing_beta": 0.5,
+        "mixing_beta": 0.3,
+        "nspin": 2,
         "CELL_PARAMETERS": "offset",
         "offset": 10.0,
     }
